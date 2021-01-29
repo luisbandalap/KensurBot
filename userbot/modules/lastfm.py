@@ -170,7 +170,7 @@ async def get_curr_track(lfmbio):
             if BOTLOG and LastLog:
                 await bot.send_message(BOTLOG_CHATID,
                                        f"Error changing bio:\n{err}")
-        except WSError as err:
+        except (WSError,MalformedResponseError) as err:
             if BOTLOG and LastLog:
                 await bot.send_message(BOTLOG_CHATID,
                                        f"Error changing bio:\n{err}")
