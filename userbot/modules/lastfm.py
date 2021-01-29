@@ -146,8 +146,30 @@ async def get_curr_track(lfmbio):
                             f"Attempted to change bio to\n{lfmbio}")
                     await bot(UpdateProfileRequest(about=lfmbio))
                 except AboutTooLongError:
-                    short_bio = f"🎧: {SONG}"
-                    await bot(UpdateProfileRequest(about=short_bio))
+                    try:
+                        SONG = sub(r"\[.*\]", "", SONG)
+                        lfmbio = f"🎧: {ARTIST} - {SONG}"
+                        if BOTLOG and LastLog:
+                            await bot.send_message(
+                                BOTLOG_CHATID,
+                                f"Attempted to change bio to\n{lfmbio}")
+                        await bot(UpdateProfileRequest(about=lfmbio))
+                    except AboutTooLongError:
+                        try:
+                            SONG = sub(r"\(.*\)", "", SONG)
+                            lfmbio = f"🎧: {ARTIST} - {SONG}"
+                            if BOTLOG and LastLog:
+                                await bot.send_message(
+                                    BOTLOG_CHATID,
+                                    f"Attempted to change bio to\n{lfmbio}")
+                            await bot(UpdateProfileRequest(about=lfmbio))
+                        except AboutTooLongError:
+                            short_bio = f"🎧: {SONG}"
+                            if BOTLOG and LastLog:
+                                await bot.send_message(
+                                    BOTLOG_CHATID,
+                                    f"Attempted to change bio to\n{lfmbio}")
+                            await bot(UpdateProfileRequest(about=short_bio))
             if playing is None and user_info.about != DEFAULT_BIO:
                 await sleep(6)
                 await bot(UpdateProfileRequest(about=DEFAULT_BIO))
@@ -174,7 +196,7 @@ async def get_curr_track(lfmbio):
             if BOTLOG and LastLog:
                 await bot.send_message(BOTLOG_CHATID,
                                        f"Error changing bio:\n{err}")
-        await sleep(2)
+        await sleep(10)
     RUNNING = False
 
 
