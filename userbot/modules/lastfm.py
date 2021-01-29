@@ -183,7 +183,11 @@ async def get_curr_track(lfmbio):
         except WSError as err:
                 await bot.send_message(BOTLOG_CHATID,
                                        f"Error changing bio:\n{err}")
+<<<<<<< HEAD
         except (MalformedResponseError) as err:
+=======
+        except (WSError,MalformedResponseError,AboutTooLongError) as err:
+>>>>>>> a583f12 (lastfm: catch AboutTooLongError to avoid turning off .lastbio)
             if BOTLOG and LastLog:
                 await bot.send_message(BOTLOG_CHATID, f"Error changing bio:\n{err}")
         await sleep(2)
