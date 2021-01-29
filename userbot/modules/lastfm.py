@@ -10,7 +10,7 @@ from re import sub
 from sys import setrecursionlimit
 from urllib import parse
 
-from pylast import User, WSError
+from pylast import User, WSError, MalformedResponseError
 from telethon.errors import AboutTooLongError
 from telethon.errors.rpcerrorlist import FloodWaitError
 from telethon.tl.functions.account import UpdateProfileRequest
